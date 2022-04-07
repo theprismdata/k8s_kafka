@@ -1,0 +1,18 @@
+// This assembly is included in the following assemblies:
+//
+// assembly-operators.adoc
+
+[id='using-the-cluster-operator-{context}']
+
+= Using the Cluster Operator
+
+[role="_abstract"]
+The Cluster Operator is used to deploy a Kafka cluster and other Kafka components.
+
+For information on deploying the Cluster Operator, see link:{BookURLDeploying}#cluster-operator-str[Deploying the Cluster Operator^].
+
+include::../../modules/operators/ref-operator-cluster.adoc[leveloffset=+1]
+//Passing proxy configuration variables from Cluster Operator
+include::../../modules/operators/proc-configuring-proxy-config-cluster-operator.adoc[leveloffset=+1]
+// Configuring FIPS mode from Cluster Operator
+include::../../modules/operators/proc-configuring-fips-mode-cluster-operator.adoc[leveloffset=+1]

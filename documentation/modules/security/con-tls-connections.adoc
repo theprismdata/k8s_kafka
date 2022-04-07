@@ -1,0 +1,36 @@
+// Module included in the following assemblies:
+//
+// assembly-security.adoc
+
+[id='tls-connections-{context}']
+= TLS connections
+
+== ZooKeeper communication
+
+Communication between the ZooKeeper nodes on all ports, as well as between clients and ZooKeeper, is encrypted using TLS.
+
+Communication between Kafka brokers and ZooKeeper nodes is also encrypted.
+
+== Kafka inter-broker communication
+
+Communication between Kafka brokers is always encrypted using TLS.
+
+Unless the `ControlPlaneListener` xref:ref-operator-cluster-feature-gates-{context}[feature gate] is enabled, all inter-broker communication goes through an internal listener on port 9091. 
+If you enable the feature gate, traffic from the control plane goes through an internal _control plane listener_ on port 9090. 
+Traffic from the data plane continues to use the existing internal listener on port 9091.
+
+These internal listeners are not available to Kafka clients.
+
+== Topic and User Operators
+
+All Operators use encryption for communication with both Kafka and ZooKeeper.
+In Topic and User Operators, a TLS sidecar is used when communicating with ZooKeeper.
+
+== Cruise Control
+
+Cruise Control uses encryption for communication with both Kafka and ZooKeeper.
+A TLS sidecar is used when communicating with ZooKeeper.
+
+== Kafka Client connections
+
+Encrypted or unencrypted communication between Kafka brokers and clients is configured using the `tls` property for `spec.kafka.listeners`.

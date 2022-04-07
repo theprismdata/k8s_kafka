@@ -1,0 +1,39 @@
+// Module included in the following assemblies:
+//
+// deploying/assembly_deploy-cluster-operator.adoc
+
+[id='deploying-cluster-operator-helm-chart-{context}']
+= Deploying Strimzi using Helm
+
+[role="_abstract"]
+link:https://helm.sh/[Helm] charts are used to package, configure, and deploy Kubernetes resources.
+Strimzi provides a Helm chart to deploy the Cluster Operator.
+
+After you have deployed the Cluster Operator this way, you can deploy Strimzi components using custom resources.
+For example, you can deploy the `Kafka` custom resource, and the installed Cluster Operator will create a Kafka cluster.
+
+For information on upgrades, see xref:con-upgrade-sequence-options-{context}[Cluster Operator upgrade options].
+
+.Prerequisites
+
+* The Helm client must be installed on a local machine.
+* Helm must be installed to the Kubernetes cluster.
+
+.Procedure
+
+. Add the Strimzi Helm Chart repository:
++
+[source,shell,subs=attributes+]
+helm repo add strimzi {ChartRepositoryUrl}
+
+. Deploy the Cluster Operator using the Helm command line tool:
++
+[source,shell,subs=attributes+]
+helm install {ChartReleaseCoordinate}
+
+. Verify that the Cluster Operator has been deployed successfully using the Helm command line tool:
++
+[source,shell]
+helm ls
+
+. xref:deploying-kafka-cluster-{context}[Deploy Kafka] and other Kafka components using custom resources.

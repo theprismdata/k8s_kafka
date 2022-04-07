@@ -1,0 +1,13 @@
+apiVersion: v1alpha1
+kind: Kafka
+metadata:
+  name: my-cluster
+spec:
+  kafka:
+    listeners:
+      - name: plain
+        port: 9092
+        tls: false
+        type: internal
+    rack:
+      topologyKey: "failure-domain.beta.kubernetes.io/zone"

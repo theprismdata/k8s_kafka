@@ -1,0 +1,70 @@
+// Module included in the following assemblies:
+//
+// deploying/assembly_deploy-kafka-mirror-maker.adoc
+
+[id='deploying-kafka-mirror-maker-{context}']
+= Deploying Kafka MirrorMaker to your Kubernetes cluster
+
+[role="_abstract"]
+This procedure shows how to deploy a Kafka MirrorMaker cluster to your Kubernetes cluster using the Cluster Operator.
+
+The deployment uses a YAML file to provide the specification to create a `KafkaMirrorMaker` or `KafkaMirrorMaker2` resource depending on the version of MirrorMaker deployed.
+
+IMPORTANT: Kafka MirrorMaker 1 (referred to as just _MirrorMaker_ in the documentation) has been deprecated in Apache Kafka 3.0.0 and will be removed in Apache Kafka 4.0.0.
+As a result, the `KafkaMirrorMaker` custom resource which is used to deploy Kafka MirrorMaker 1 has been deprecated in Strimzi as well.
+The `KafkaMirrorMaker` resource will be removed from Strimzi when we adopt Apache Kafka 4.0.0.
+As a replacement, use the `KafkaMirrorMaker2` custom resource with the link:{BookURLUsing}#unidirectional_replication_activepassive[`IdentityReplicationPolicy`].
+
+Strimzi provides xref:deploy-examples-{context}[example configuration files].
+In this procedure, we use the following example files:
+
+* `examples/mirror-maker/kafka-mirror-maker.yaml`
+* `examples/mirror-maker/kafka-mirror-maker-2.yaml`
+
+.Prerequisites
+
+* xref:deploying-cluster-operator-str[The Cluster Operator must be deployed.]
+
+.Procedure
+
+. Deploy Kafka MirrorMaker to your Kubernetes cluster:
++
+For MirrorMaker:
++
+[source,shell,subs="attributes+"]
+----
+kubectl apply -f examples/mirror-maker/kafka-mirror-maker.yaml
+----
++
+For MirrorMaker 2.0:
++
+[source,shell,subs="attributes+"]
+----
+kubectl apply -f examples/mirror-maker/kafka-mirror-maker-2.yaml
+----
+
+. Check the status of the deployment:
++
+[source,shell,subs="+quotes"]
+----
+kubectl get deployments -n _<my_cluster_operator_namespace>_
+----
++
+.Output shows the deployment name and readiness
+[source,shell,subs="+quotes"]
+----
+NAME                          READY  UP-TO-DATE  AVAILABLE
+my-mirror-maker-mirror-maker  1/1    1           1
+my-mm2-cluster-mirrormaker2   1/1    1           1
+----
++
+`my-mirror-maker` is the name of the Kafka MirrorMaker cluster.
+`my-mm2-cluster` is the name of the Kafka MirrorMaker 2.0 cluster.
++
+`READY` shows the number of replicas that are ready/expected.
+The deployment is successful when the `AVAILABLE` output shows `1`.
+
+[role="_additional-resources"]
+.Additional resources
+
+* link:{BookURLUsing}#assembly-deployment-configuration-kafka-mirror-maker-str[Kafka MirrorMaker cluster configuration^]
